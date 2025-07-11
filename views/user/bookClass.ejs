@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book a Yoga Class</title>
+  <link rel="stylesheet" href="/css/booking.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <h2>Book a Yoga Class</h2>
+      <a href="/user/dashboard" class="btn-back">← Back to Dashboard</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <% if (message) { %>
+      <div class="message"><%= message %></div>
+    <% } %>
+
+    <div class="class-table-container">
+      <% if (classes && classes.length > 0) { %>
+        <table class="class-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Instructor</th>
+              <th>Schedule</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% classes.forEach(cls => { %>
+              <tr>
+                <td><%= cls.id %></td>
+                <td><%= cls.title %></td>
+                <td><%= cls.instructor_name %></td>
+                <td><%= new Date(cls.schedule).toLocaleString() %></td>
+                <td>
+                  <form action="/booking/book" method="POST">
+                    <input type="hidden" name="class_id" value="<%= cls.id %>">
+                    <button type="submit" class="btn-book">Book</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No classes available for booking at the moment.</p>
+      <% } %>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/css/user.css" />
+</head>
+<body>
+  <header class="header">
+    <h2>Welcome, <%= user.name %> 🧘‍♂️</h2>
+    <a href="/logout" class="btn-logout">Logout</a>
+  </header>
+
+  <main class="main-content">
+    <h1>Your Bookings</h1>
+    <% if (message) { %>
+      <p class="message"><%= message %></p>
+    <% } %>
+
+    <% if (bookings.length === 0) { %>
+      <p>You have no booked classes yet.</p>
+      <a href="/user/classes">Browse Classes</a>
+    <% } else { %>
+      <table border="1" cellpadding="8" cellspacing="0" style="margin:auto;">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Instructor</th>
+            <th>Schedule</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bookings.forEach(booking => { %>
+            <tr>
+              <td><%= booking.title %></td>
+              <td><%= booking.instructor_name %></td>
+              <td><%= new Date(booking.schedule).toLocaleString() %></td>
+              <td>
+                <form action="/user/cancel-booking" method="POST" style="display:inline;">
+                  <input type="hidden" name="booking_id" value="<%= booking.id %>" />
+                  <button type="submit">Cancel</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+</body>
+</html>

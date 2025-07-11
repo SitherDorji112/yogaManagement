@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instructor Dashboard</title>
+  <link rel="stylesheet" href="/css/instructorDashboard.css" />
+</head>
+<body>
+
+  <header class="instructor-header">
+    <h1>Instructor Dashboard</h1>
+    <a href="/logout" class="logout-btn">Logout</a>
+  </header>
+
+  <div class="container">
+
+    <% if (message && message.length > 0) { %>
+      <div class="message"><%= message[0] %></div>
+    <% } %>
+
+    <div class="welcome-text">
+      <h2>Welcome, <%= user.name %>!</h2>
+      <p>Manage your classes and students efficiently.</p>
+    </div>
+
+    <div class="dashboard-cards">
+      <div class="card">
+        <h3>Total Classes</h3>
+        <p><%= stats.totalClasses || 0 %></p>
+      </div>
+      <div class="card">
+        <h3>Upcoming Sessions</h3>
+        <p><%= stats.upcomingSessions || 0 %></p>
+      </div>
+      <div class="card">
+        <h3>Total Students</h3>
+        <p><%= stats.totalStudents || 0 %></p>
+      </div>
+    </div>
+
+    <a href="/instructor/manage-classes" class="btn-primary">Manage Classes</a>
+
+  </div>
+
+</body>
+</html>
