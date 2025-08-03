@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage My Classes</title>
+  <link rel="stylesheet" href="/css/instructor.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="instructor-header">
+    <h1>Manage My Yoga Classes</h1>
+    <a href="/instructor/dashboard" class="logout-btn">← Back to Dashboard</a>
+  </header>
+
+  <div class="container">
+
+    <% if (typeof message !== 'undefined' && message) { %>
+      <div class="message"><%= message %></div>
+    <% } %>
+
+    <% if (classes && classes.length > 0) { %>
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Schedule</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% classes.forEach(cls => { %>
+            <tr>
+              <td><%= cls.id %></td>
+              <td><%= cls.title %></td>
+              <td><%= new Date(cls.schedule).toLocaleString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No classes found. You can add new classes from the dashboard.</p>
+    <% } %>
+
+  </div>
+</body>
+</html>
